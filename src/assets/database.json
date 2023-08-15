@@ -1,0 +1,30 @@
+[
+  {
+      "id": 1,
+      "name": "John Doe",
+      "city": "Phoenix",
+      "orderTotal": 9.99,
+      "customerSince": "2014-08-10T00:00:00.000Z"
+  },
+  {
+      "id": 2,
+      "name": "Jane Doe",
+      "city": "Chandler",
+      "orderTotal": 19.99,
+      "customerSince": "2017-03-22T00:00:00.000Z"
+  },
+  {
+      "id": 3,
+      "name": "Michelle Thomas",
+      "city": "Seattle",
+      "orderTotal": 99.99,
+      "customerSince": "2002-11-30T00:00:00.000Z"
+  },
+  {
+      "id": 4,
+      "name": "Jim Thomas",
+      "city": "New York",
+      "orderTotal": 599.99,
+      "customerSince": "2002-11-30T00:00:00.000Z"
+  }
+]

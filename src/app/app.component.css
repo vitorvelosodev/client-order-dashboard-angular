@@ -1,0 +1,12 @@
+main {
+  max-width: 980px;
+  margin: auto;
+}
+
+.header-container {
+  margin-top: 10px;
+  padding: 20px;
+  background-color: #2D9BF0;
+  color: white;
+  border-radius: 5px;
+}
