@@ -2,6 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 import { FetchService } from '../core/fetch.service';
 import { ICustomer } from '../interfaces/ICustomers';
+import { NewClientService } from '../core/new-client.service';
 
 @Component({
   selector: 'app-client-table',
@@ -12,7 +13,8 @@ export class ClientTableComponent implements OnInit {
   private _customers : ICustomer[];
   filteredCustomers: ICustomer[];
   totalValue: number = 0;
-  constructor (private fetchService: FetchService) {}
+  receivedClientFromService = { city: '', id: 0, customerSince: new Date(), name: '', orderTotal: 0 };
+  constructor (private fetchService: FetchService, private newClientService: NewClientService) {}
   
   ngOnInit(): void {
     this.fetchService.getCostumers().subscribe(
@@ -21,6 +23,15 @@ export class ClientTableComponent implements OnInit {
         this.filteredCustomers = data;
         this.calculateTotalValue();
       });
+    
+    this.newClientService.client$.subscribe((client) => {
+      if (this.receivedClientFromService !== client && this._customers) {
+        this.receivedClientFromService = client;
+        this._customers.push(this.receivedClientFromService);
+        this.filteredCustomers = this._customers;
+        this.calculateTotalValue();
+      }
+    });
   }
   
   private calculateTotalValue() {
@@ -62,21 +73,32 @@ export class ClientTableComponent implements OnInit {
     } else {
       this.filteredCustomers = this._customers;
     }
-    console.log(this.filteredCustomers);
     this.calculateTotalValue();
   }
 
   sortOrder: 'ASC' | 'DESC' | undefined;
+  sortedBy: 'name' | 'city' | 'orderTotal' | undefined = undefined;
 
   sort(parameter: 'name' | 'city' | 'orderTotal') {
-    this.sortOrder === 'ASC' ? this.sortOrder = 'DESC' : this.sortOrder = 'ASC';
-    if (!this.sortOrder) {
+    if (this.sortOrder === 'ASC' && parameter === this.sortedBy) { 
+      this.sortOrder = 'DESC';
+    } else {
       this.sortOrder = 'ASC';
+      this.sortedBy = parameter;
     }
+
     let order: number;
-    this.sortOrder === 'ASC' ? order = 1 : order = -1; 
-    this.filteredCustomers = this._customers.sort(
-      (a, b) => order*(a[parameter].toString().localeCompare(b[parameter].toString()))
-    );
+    this.sortOrder === 'ASC' ? order = 1 : order = -1;
+    if (parameter !== 'orderTotal') {
+      this.filteredCustomers = this._customers.sort(
+        (a, b) => order*(a[parameter].toString().localeCompare(b[parameter].toString()))
+      );
+    } else {
+      this.filteredCustomers = this._customers.sort(
+        (a, b) => order*(a.orderTotal - b.orderTotal)
+      );
+    }
   }
+
+
 }
