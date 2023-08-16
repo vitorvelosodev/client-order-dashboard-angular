@@ -2,7 +2,7 @@
   {
       "id": 1,
       "name": "John Doe",
-      "city": "Phoenix",
+      "city": "Zurich",
       "orderTotal": 9.99,
       "customerSince": "2014-08-10T00:00:00.000Z"
   },
@@ -16,7 +16,7 @@
   {
       "id": 3,
       "name": "Michelle Thomas",
-      "city": "Seattle",
+      "city": "Miami",
       "orderTotal": 99.99,
       "customerSince": "2002-11-30T00:00:00.000Z"
   },
