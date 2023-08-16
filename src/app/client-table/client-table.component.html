@@ -2,23 +2,23 @@
   <div class="mb-3">
     <div class="input-group">
       <span class="input-group-text" id="basic-addon3">Filter</span>
-      <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3 basic-addon4">
+      <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3 basic-addon4" (input)="filterCustomer($event)">
     </div>
   </div>
   <table class="table table-striped">
     <thead>
       <tr>
         <th scope="col">#</th>
-        <th scope="col">Name</th>
-        <th scope="col">City</th>
-        <th scope="col">Total</th>
+        <th scope="col" (click)="sort('name')">Name</th>
+        <th scope="col" (click)="sort('city')">City</th>
+        <th scope="col" (click)="sort('orderTotal')">Total</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let customer of filteredCustomers; let i = index;">
         <th scope="row">{{ i + 1 }}</th>
-        <td>{{ customer.name }}</td>
-        <td>{{ customer.city }}</td>
+        <td>{{ customer.name | titlecase }}</td>
+        <td>{{ customer.city | titlecase }}</td>
         <td>{{ customer.orderTotal | currency }}</td>
       </tr>
       <tr class="bold">

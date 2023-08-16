@@ -11,9 +11,7 @@ import { ICustomer } from '../interfaces/ICustomers';
 export class FetchService {
   baseUrl = 'assets/';
 
-  constructor(private http: HttpClient) {
-    console.log('rodei mmeu service');
-  }
+  constructor(private http: HttpClient) {}
 
   getCostumers(): Observable<ICustomer[]> {
     return this.http.get<ICustomer[]>(this.baseUrl + 'database.json').pipe(catchError(this.handleError));
